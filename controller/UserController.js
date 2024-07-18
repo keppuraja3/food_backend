@@ -30,7 +30,7 @@ exports.addUser = [
 
     await newUser.save();
 
-    await mailSender({to: email, subject: "Food Project Team"})
+    await mailSender({to: email, name: name, subject: "Food Project Team"})
     return res.status(200).json({status: true, message: "User registered successfully"})
 
    } catch (error) {
