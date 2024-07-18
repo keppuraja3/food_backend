@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer")
 require('dotenv').config()
-const {Register}= require("./RegisterTemplete")
+const {Register}= require("./RegisterTemplate")
+const { ConfirmOtp } = require("./ConfirmOtpTemplate")
 
 exports.mailSender = async (mailData= {})=>{
 
@@ -11,7 +12,13 @@ exports.mailSender = async (mailData= {})=>{
             user: process.env.smtpSendEamil,
             pass:process.env.smtpAppPass
         }
-    })   
+    })  
+
+    // selecting html template---
+    let htmlTemplate = null
+    if(mailData.otp){
+        htmlTemplate=  ConfirmOtp({name,otp})
+    }
 
     // mail options---
 
@@ -19,7 +26,7 @@ exports.mailSender = async (mailData= {})=>{
         from: process.env.smtpSendEamil,
         to: to,
         subject: subject,
-        html:Register(name),
+        html: htmlTemplate,
     }
 
     await transpoter.sendMail(mailOptions, (error, info)=>{

@@ -1,0 +1,21 @@
+exports.ConfirmOtp = (name, otp) => {
+  return ` <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <div style="width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <div style="background-color: #007bff; color: #ffffff; padding: 10px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1>Confirm Your OTP</h1>
+        </div>
+        <div style="padding: 20px;">
+            <p>Hi ${name},</p>
+            <p>Thank you for registering with us. To complete your registration, please use the following OTP (One-Time Password):</p>
+            <p style="font-size: 24px; font-weight: bold; text-align: center; color: #007bff;">${otp}</p>
+            <p>This OTP is valid for the next 10 minutes. Please do not share this OTP with anyone for security reasons.</p>
+            <p>If you did not request this OTP, please ignore this email.</p>
+            <p>Best regards,<br>The [Your Company] Team</p>
+        </div>
+        <div style="background-color: #f1f1f1; color: #555555; padding: 10px; text-align: center; border-radius: 0 0 8px 8px;">
+            <p>&copy; [Year] [Your Company]. All rights reserved.</p>
+            <p>If you have any questions, please visit our <a href="[Support Link]" style="color: #007bff; text-decoration: none;">support page</a>.</p>
+        </div>
+    </div>
+</body>`;
+};
