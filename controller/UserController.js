@@ -1,10 +1,11 @@
 const User = require("../models/UserModel");
 
+const {mailSender} = require("../helper/MailHelper")
+
 exports.addUser = [
   async (req, res) => {
    try {
     const { name, email, mobileNo } = req.body;
-
     // Checking user is already registered or not using email id
     const isEmail = await User.findOne({ email });
     if (isEmail) {
@@ -29,6 +30,7 @@ exports.addUser = [
 
     await newUser.save();
 
+    await mailSender({to: email, subject: "Food Project Team"})
     return res.status(200).json({status: true, message: "User registered successfully"})
 
    } catch (error) {
