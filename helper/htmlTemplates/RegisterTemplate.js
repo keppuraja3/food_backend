@@ -3,14 +3,13 @@ exports.Register = (name) => {
     style="
         font-family: Arial, sans-serif;
         margin: 0;
-        padding: 1rem;
+        padding: 1rem 0 1rem;
         background-color: #f4f4f4;
         justify-content: center;
     "
   >
     <div
       style="
-        width: 100%;
         max-width: 600px;
         margin: 0 auto;
         background-color: #ffffff;

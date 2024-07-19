@@ -1,8 +1,9 @@
 const User = require("../models/UserModel");
 const UserOtp = require("../models/OtpModel");
 const { mailSender } = require("../helper/MailHelper");
+const jwt = require("jsonwebtoken")
 
-// Sign up with otp [ "/auth/register/verify" ] ---
+// Sign up with OTP [ "/auth/signup" ] ---
 exports.SignUpWithOtp = [
   async (req, res) => {
     try {
@@ -36,8 +37,12 @@ exports.SignUpWithOtp = [
         } else {
           return res
             .status(409)
-            .json({ status: false, message: "invalid otp" });
+            .json({ status: false, message: "invalid OTP" });
         }
+      }
+      else{
+        console.log("Register UserOtp not found")
+        return res.status(500).json({status: false, message: "Register UserOtp not found"})
       }
     } catch (error) {
       console.log("Adding user Error: ", error);
@@ -48,8 +53,33 @@ exports.SignUpWithOtp = [
   },
 ];
 
-exports.UserLogin = [
+// Sign In with OTP [ "/auth/signin" ]
+exports.SignInWithOtp = [
   async (req, res) => {
-    // const
+    const { email, mobileNo, otp} = req.body
+    const isOtpUser = await UserOtp.findOne({
+      $or: [{ email }, { mobileNo }],
+    });
+
+    if(isOtpUser){
+      const user = await User.findOne({$or:[{email},{mobileNo}]})
+      if(isOtpUser.otp===otp){
+
+        const token = await jwt.sign({
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          mobileNo: user.mobileNo,
+        },process.env.SECRET_KEY,{expiresIn: "1h"})
+        return res.status(200).json({status: true, message: "Login successfully", token: token})
+
+      }else{
+        return res.status(409).json({status: false, message: "Invalid OTP"})
+      }
+    }
+    else{
+      console.log("Login User Otp not found")
+      return res.status(500).json({status: false, message: "Login UserOtp not found"})
+    }
   },
 ];

@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
-require('dotenv').config()
-const { Register }= require("./RegisterTemplate")
-const { ConfirmOtp } = require("./ConfirmOtpTemplate")
+// require('dotenv').config()
+const { Register }= require("./htmlTemplates/RegisterTemplate")
+const { ConfirmOtp } = require("./htmlTemplates/ConfirmOtpTemplate")
 
 exports.mailSender = async (mailData= {})=>{
 
@@ -10,7 +10,7 @@ exports.mailSender = async (mailData= {})=>{
         service: "gmail",
         auth:{
             user: process.env.smtpSendEamil,
-            pass:process.env.smtpAppPass
+            pass: process.env.smtpAppPass
         }
     })  
 
