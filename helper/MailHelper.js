@@ -1,11 +1,11 @@
 const nodemailer = require("nodemailer")
 require('dotenv').config()
-const {Register}= require("./RegisterTemplate")
+const { Register }= require("./RegisterTemplate")
 const { ConfirmOtp } = require("./ConfirmOtpTemplate")
 
 exports.mailSender = async (mailData= {})=>{
 
-    const {to,subject,name}= mailData
+    const {to,subject,name,otp}= mailData
     const transpoter = nodemailer.createTransport({
         service: "gmail",
         auth:{
@@ -16,8 +16,11 @@ exports.mailSender = async (mailData= {})=>{
 
     // selecting html template---
     let htmlTemplate = null
+
     if(mailData.otp){
-        htmlTemplate=  ConfirmOtp({name,otp})
+        htmlTemplate=  ConfirmOtp(name,otp)
+    }else{
+        htmlTemplate = Register(name)
     }
 
     // mail options---
