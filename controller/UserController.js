@@ -45,7 +45,7 @@ exports.SignUpWithOtp = [
         return res.status(500).json({status: false, message: "Register UserOtp not found"})
       }
     } catch (error) {
-      console.log("Adding user Error: ", error);
+      console.log("Adding user Error: ", error.message);
       return res
         .status(500)
         .json({ status: false, message: "Error on server" });

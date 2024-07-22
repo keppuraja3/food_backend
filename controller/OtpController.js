@@ -69,6 +69,7 @@ exports.SignInOtpGenerate = [
 
       await mailSender({
         to: email,
+        name: IsUser.name,
         subject: "Sign UP Otp",
         otp: otp,
       });

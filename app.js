@@ -3,13 +3,13 @@ const app = express();
 const cookieParser = require("cookie-parser")
 require("dotenv").config();
 require("./db").connectDB(); // Database connection
-const UserRouter = require("./routes/UserRoute")
+const mainRouter = require("./routes/mainRoute")
 
 
 // app use ---
 app.use(express.json())
 app.use(cookieParser())
-app.use(UserRouter)
+app.use(mainRouter)
 
 PORT = process.env.PORT;
 

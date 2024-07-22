@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer")
 // require('dotenv').config()
 const { Register }= require("./htmlTemplates/RegisterTemplate")
 const { ConfirmOtp } = require("./htmlTemplates/ConfirmOtpTemplate")
+const { Subscribe } = require("../helper/htmlTemplates/Subscribe")
 
 exports.mailSender = async (mailData= {})=>{
 
@@ -17,10 +18,14 @@ exports.mailSender = async (mailData= {})=>{
     // selecting html template---
     let htmlTemplate = null
 
-    if(mailData.otp){
+    if(otp && name){
         htmlTemplate=  ConfirmOtp(name,otp)
-    }else{
+    }
+    else if(name){
         htmlTemplate = Register(name)
+    }
+    else{
+        htmlTemplate = Subscribe()
     }
 
     // mail options---

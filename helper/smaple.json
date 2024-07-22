@@ -1,0 +1,255 @@
+[
+    {
+      "dish_name": "Spring Rolls",
+      "description": "Crispy rolls stuffed with vegetables",
+      "price": "150",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 4,
+      "image": "spring_rolls.jpg"
+    },
+    {
+      "dish_name": "Chicken Wings",
+      "description": "Spicy wings served with blue cheese dip",
+      "price": "750",
+      "vegetarian": false,
+      "deliverytime": "10 to 15",
+      "rating": 5,
+      "image": "chicken_wings.jpg"
+    },
+    {
+      "dish_name": "Grilled Salmon",
+      "description": "Served with lemon butter sauce",
+      "price": "1200",
+      "vegetarian": false,
+      "deliverytime": "15 to 20",
+      "rating": 4,
+      "image": "grilled_salmon.jpg"
+    },
+    {
+      "dish_name": "Vegetable Stir Fry",
+      "description": "Mixed vegetables in a soy-ginger sauce",
+      "price": "500",
+      "vegetarian": true,
+      "deliverytime": "10 to 15",
+      "rating": 3,
+      "image": "vegetable_stir_fry.jpg"
+    },
+    {
+      "dish_name": "Cheesecake",
+      "description": "Creamy cheesecake with a graham cracker crust",
+      "price": "250",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 5,
+      "image": "cheesecake.jpg"
+    },
+    {
+      "dish_name": "Chocolate Lava Cake",
+      "description": "Warm chocolate cake with a molten center",
+      "price": "300",
+      "vegetarian": true,
+      "deliverytime": "10 to 15",
+      "rating": 4,
+      "image": "chocolate_lava_cake.jpg"
+    },
+    {
+      "dish_name": "Coffee",
+      "description": "Freshly brewed coffee",
+      "price": "100",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 3,
+      "image": "coffee.jpg"
+    },
+    {
+      "dish_name": "Green Tea",
+      "description": "Organic green tea",
+      "price": "70",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 4,
+      "image": "green_tea.jpg"
+    },
+    {
+      "dish_name": "Caesar Salad",
+      "description": "Salad with romaine, croutons, and Caesar dressing",
+      "price": "200",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 4,
+      "image": "caesar_salad.jpg"
+    },
+    {
+      "dish_name": "BBQ Ribs",
+      "description": "Tender ribs with BBQ sauce",
+      "price": "1300",
+      "vegetarian": false,
+      "deliverytime": "20 to 25",
+      "rating": 5,
+      "image": "bbq_ribs.jpg"
+    },
+    {
+      "dish_name": "Pasta Carbonara",
+      "description": "Creamy pasta with bacon and Parmesan",
+      "price": "400",
+      "vegetarian": false,
+      "deliverytime": "15 to 20",
+      "rating": 4,
+      "image": "pasta_carbonara.jpg"
+    },
+    {
+      "dish_name": "Margherita Pizza",
+      "description": "Pizza with tomato, mozzarella, and basil",
+      "price": "350",
+      "vegetarian": true,
+      "deliverytime": "10 to 15",
+      "rating": 5,
+      "image": "margherita_pizza.jpg"
+    },
+    {
+      "dish_name": "Mango Sorbet",
+      "description": "Refreshing mango sorbet",
+      "price": "180",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 4,
+      "image": "mango_sorbet.jpg"
+    },
+    {
+      "dish_name": "Beef Tacos",
+      "description": "Tacos with seasoned beef and toppings",
+      "price": "220",
+      "vegetarian": false,
+      "deliverytime": "10 to 15",
+      "rating": 4,
+      "image": "beef_tacos.jpg"
+    },
+    {
+      "dish_name": "Chicken Caesar Wrap",
+      "description": "Chicken wrap with Caesar salad ingredients",
+      "price": "280",
+      "vegetarian": false,
+      "deliverytime": "10 to 15",
+      "rating": 3,
+      "image": "chicken_caesar_wrap.jpg"
+    },
+    {
+      "dish_name": "Tom Yum Soup",
+      "description": "Spicy Thai soup with shrimp",
+      "price": "300",
+      "vegetarian": false,
+      "deliverytime": "10 to 15",
+      "rating": 5,
+      "image": "tom_yum_soup.jpg"
+    },
+    {
+      "dish_name": "Vegetable Curry",
+      "description": "Spicy curry with assorted vegetables",
+      "price": "450",
+      "vegetarian": true,
+      "deliverytime": "15 to 20",
+      "rating": 4,
+      "image": "vegetable_curry.jpg"
+    },
+    {
+      "dish_name": "Garlic Bread",
+      "description": "Toasted bread with garlic butter",
+      "price": "120",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 4,
+      "image": "garlic_bread.jpg"
+    },
+    {
+      "dish_name": "Pancakes",
+      "description": "Fluffy pancakes with maple syrup",
+      "price": "200",
+      "vegetarian": true,
+      "deliverytime": "10 to 15",
+      "rating": 5,
+      "image": "pancakes.jpg"
+    },
+    {
+      "dish_name": "Buffalo Wings",
+      "description": "Hot wings with buffalo sauce",
+      "price": "650",
+      "vegetarian": false,
+      "deliverytime": "10 to 15",
+      "rating": 4,
+      "image": "buffalo_wings.jpg"
+    },
+    {
+      "dish_name": "Apple Pie",
+      "description": "Homemade apple pie with cinnamon",
+      "price": "220",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 5,
+      "image": "apple_pie.jpg"
+    },
+    {
+      "dish_name": "Fettuccine Alfredo",
+      "description": "Pasta with a rich Alfredo sauce",
+      "price": "400",
+      "vegetarian": false,
+      "deliverytime": "15 to 20",
+      "rating": 4,
+      "image": "fettuccine_alfredo.jpg"
+    },
+    {
+      "dish_name": "Sushi Roll",
+      "description": "Fresh sushi roll with fish and vegetables",
+      "price": "700",
+      "vegetarian": false,
+      "deliverytime": "15 to 20",
+      "rating": 5,
+      "image": "sushi_roll.jpg"
+    },
+    {
+      "dish_name": "Quiche Lorraine",
+      "description": "Savory pie with bacon and cheese",
+      "price": "350",
+      "vegetarian": false,
+      "deliverytime": "10 to 15",
+      "rating": 4,
+      "image": "quiche_lorraine.jpg"
+    },
+    {
+      "dish_name": "Fruit Salad",
+      "description": "Fresh mix of seasonal fruits",
+      "price": "150",
+      "vegetarian": true,
+      "deliverytime": "5 to 10",
+      "rating": 4,
+      "image": "fruit_salad.jpg"
+    },
+    {
+      "dish_name": "Mozzarella Sticks",
+      "description": "Fried cheese sticks with marinara sauce",
+      "price": "250",
+      "vegetarian": true,
+      "deliverytime": "10 to 15",
+      "rating": 4,
+      "image": "mozzarella_sticks.jpg"
+    },
+    {
+      "dish_name": "Lamb Chops",
+      "description": "Grilled lamb chops with rosemary",
+      "price": "1500",
+      "vegetarian": false,
+      "deliverytime": "20 to 25",
+      "rating": 5,
+      "image": "lamb_chops.jpg"
+    },
+    {
+      "dish_name": "Ratatouille",
+      "description": "Vegetable stew with a rich tomato base",
+      "price": "400",
+      "vegetarian": true,
+      "deliverytime": "15 to 20",
+      "rating": 4,
+      "image": "ratatouille.jpg"
+    }
+  ]
+  
