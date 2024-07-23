@@ -32,7 +32,7 @@ exports.Subscribe = [
       await mailSender({ to: email, name, subject: "Thanks for the subscribe" });
 
       return res
-        .status(200)
+        .status(201)
         .json({ status: true, message: "Subscribed successfully" });
 
     } catch (error) {

@@ -7,18 +7,12 @@ const mainRouter = require("./routes/mainRoute")
 
 
 // app use ---
+app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(cookieParser())
 app.use(mainRouter)
-const UserRouter = require("./routes/UserRoute");
-
-// app use ---
-app.use(express.json());
-app.use(cookieParser());
-app.use(UserRouter);
 
 PORT = process.env.PORT || 3002;
-
 app.listen(PORT, () => {
   console.log("Server running on ", PORT);
 });

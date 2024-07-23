@@ -28,10 +28,12 @@ exports.SignUpOtpGenerate = [
       const otp = await GenerateOtp(6)
 
       const newUserOtp = new UserOtp({
+        name,
         email,
         mobileNo,
         otp: otp,
       });
+      
       await mailSender({
         to: email,
         subject: "OTP Verification",
@@ -41,8 +43,8 @@ exports.SignUpOtpGenerate = [
 
       // console.log("otp--- ", otp);
       await newUserOtp.save();
-
-      return res.status(200).json({ status: true, message: "Otp generated" });
+      console.log("new user otp: ",newUserOtp);
+      return res.status(201).json({ status: true, message: "Otp generated", otpId: newUserOtp._id});
     } catch (error) {
       console.log("SignUp Otp Error: ", error);
       return res
