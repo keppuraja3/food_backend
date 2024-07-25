@@ -18,16 +18,19 @@ router.post("/signin/otp",OtpController.SignInOtpGenerate)
 // Sign In with OTP verification ---
 router.post("/auth/signin", UserController.SignInWithOtp)
 
-// Add subscriber
+// Add subscriber ---
 router.post("/subscribe", SubscribeController.Subscribe)
 
-// Add favorite product to the user list ---
-router.post('/users/:userId/feedback/:productId', UserController.AddFeedback)
-
-// Add Product data ---
+// Add Product data with image ---
 router.post("/product/add",multerhelper.multerupload.single("product_image"), ProductController.AddProduct)
+
+// Get all Food products ---
+router.get("/products/food/list",ProductController.GetFoodProducts)
 
 // Delete Product data ---
 router.delete("/product/delete", ProductController.DeleteProduct)
+
+// Add feedback product to the user list ---
+router.post('/users/:userId/feedback/:productId', UserController.AddFeedback)
 
 module.exports = router

@@ -6,7 +6,8 @@ const Product = mongoose.model(
     {
       product_name: { type: String, required: true },
       price: { type: Number, required: true },
-      delivery_time: { type: Number, required: true },
+      min_delivery_time: { type: Number, required: true },
+      max_delivery_time: { type: Number, required: true },
       rating: { type: Number },
       description: { type: String, required: true },
       product_image: {

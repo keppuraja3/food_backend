@@ -20,7 +20,7 @@ const cloudupload = async (path) => {
       folder: "ProductData",
     };
     const result = await cloudinary.uploader.upload(path, options);
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (error) {
     console.error("Error on cloudinary: ", error);

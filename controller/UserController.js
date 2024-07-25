@@ -44,7 +44,7 @@ exports.SignUpWithOtp = [
           .json({ status: false, message: "Register User Otp not found" });
       }
     } catch (error) {
-      console.log("Adding user Error: ", error.message)
+      console.log("Adding user Error: ", error.message);
       return res
         .status(500)
         .json({ status: false, message: "Error on server" });
@@ -120,3 +120,29 @@ exports.AddFeedback = [
     }
   },
 ];
+
+// Add favorite to the user [''] ---
+exports.AddFavorite = [
+  async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const productId = req.params.productId;
+
+      const IsProduct = Product.findById(productId);
+      const IsUser = User.findById(userId);
+
+      if (!IsProduct) return res.status(500).json({ status: false, message: "Product not found" });
+
+      if (!IsUser) return res.status(500).json({ status: false, message: "User not found" });
+
+      await User.findByIdAndUpdate(userId, { $push: { favorite: productId } });
+
+      return res.status(200).json({ status: true, message: "Added to favorite" });
+
+    } catch (error) {
+      console.log("Error on add favorite: ", error);
+      return res.status(500).json({status: false, message: "Error on server"})
+    }
+  },
+];
+

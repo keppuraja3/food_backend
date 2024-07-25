@@ -1,6 +1,7 @@
 const { cloudupload, cloudDistroy } = require("../helper/Cloudinary");
 const Product = require("../models/ProductModel");
 
+// Adding a new product ['/product/add'] ----
 exports.AddProduct = [
   async (req, res) => {
     try {
@@ -9,7 +10,8 @@ exports.AddProduct = [
         categories,
         product_name,
         price,
-        delivery_time,
+        min_delivery_time,
+        max_delivery_time,
         rating,
         description,
         offer,
@@ -22,12 +24,14 @@ exports.AddProduct = [
         categories,
         product_name,
         price,
-        delivery_time,
+        min_delivery_time,
+        max_delivery_time,
         rating,
         description,
         product_image: { image: imageUrl.url, publicId: imageUrl.public_id },
         offer,
       });
+
       return res
         .status(201)
         .json({ status: true, message: "Product created successfully" });
@@ -40,7 +44,26 @@ exports.AddProduct = [
   },
 ];
 
-// Deleting the product and cloudinary image ['/product/delete/:productId/:publicId'] ----
+// Get all food products ["/products/food/list"] ---
+exports.GetFoodProducts = [
+  async (req, res) => {
+    const foodProducts = await Product.find({ product_type: "food" });
+
+    if (!foodProducts || foodProducts.length === 0) {
+      return res
+        .status(500)
+        .json({ status: false, message: "Food products not found" });
+    }
+
+    console.log("food list: ", foodProducts);
+
+    return res
+      .status(200)
+      .json({ status: true, message: "Food list success", data: foodProducts });
+  },
+];
+
+// Deleting the product and cloudinary image ['/product/delete'] ----
 exports.DeleteProduct = [
   async (req, res) => {
     const publicId = req.body.publicId;

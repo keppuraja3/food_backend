@@ -11,7 +11,11 @@ const User = mongoose.model(
       feedbacks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feedback'
-      }]
+      }],
+      favorite:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+      }],
     },
     { timestamps: true }
   )
