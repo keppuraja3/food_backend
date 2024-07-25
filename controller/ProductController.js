@@ -8,6 +8,7 @@ exports.AddProduct = [
       const {
         product_type,
         categories,
+        hub_name,
         product_name,
         price,
         min_delivery_time,
@@ -22,6 +23,7 @@ exports.AddProduct = [
       await Product.create({
         product_type,
         categories,
+        hub_name,
         product_name,
         price,
         min_delivery_time,

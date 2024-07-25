@@ -4,8 +4,12 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors")
 require("dotenv").config();
 require("./db").connectDB(); // Database connection
-const mainRouter = require("./routes/mainRoute")
 
+// Routers ---
+const UserRouter = require("./routes/userRoute")
+const OtpRouter = require("./routes/OtpRoute")
+const SubscribeRouter = require("./routes/SubscribeRoute")
+const ProductRouter = require("./routes/ProductRoute")
 
 // app use ---
 app.use(express.urlencoded({extended: true}))
@@ -24,7 +28,7 @@ const corsOptions = {
 };
 app.use(cors({origin:"*"}))
 
-app.use(mainRouter)
+app.use(UserRouter)
 PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
