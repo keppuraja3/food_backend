@@ -63,6 +63,8 @@ exports.GetFoodProducts = [
   },
 ];
 
+
+
 // Deleting the product and cloudinary image ['/product/delete'] ----
 exports.DeleteProduct = [
   async (req, res) => {
