@@ -1,24 +1,27 @@
 const mongoose = require("mongoose");
 
-const Product = mongoose.model(
-  "Product",
+const Food = mongoose.model(
+  "Food",
   new mongoose.Schema(
     {
-      product_name: { type: String, required: true },
-      hub_name:{type: String, required: true},
+      food_name: { type: String, required: true, trim: true },
+      restaurant_name: { type: String, required: true, trim: true },
       price: { type: Number, required: true },
       min_delivery_time: { type: Number, required: true },
       max_delivery_time: { type: Number, required: true },
       rating: { type: Number },
       description: { type: String, required: true },
-      product_image: {
-        type: mongoose.Schema.Types.Mixed, // Can store any type of data
-        default: {},
+      veg_type: {
+        type: Boolean,
         required: true,
       },
-      product_type: { type: String, required: true },
+      food_image: {
+        image: { type: String, required: true },
+        publicId: { type: String, required: true },
+      },
       offer: { type: Number, default: null },
-      categories: { type: String, required: true },
+      categorie: { type: String, required: true },
+      sub_categorie: { type: String, required: true },
       feedbacks: [
         {
           type: mongoose.Schema.Types.ObjectId,
@@ -30,4 +33,4 @@ const Product = mongoose.model(
   )
 );
 
-module.exports = Product;
+module.exports = Food;

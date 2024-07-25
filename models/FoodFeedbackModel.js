@@ -1,12 +1,12 @@
 const mongoose = require("mongoose")
 
-const Feedback = mongoose.model(
-    'Feedback',
+const Food_Feedback = mongoose.model(
+    'Food_Feedback',
     new mongoose.Schema({
-        product_id: {
+        Food_id: {
             required: true,
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product'
+            ref: 'Food'
         },
         user_id: {
             required:true,
@@ -16,3 +16,5 @@ const Feedback = mongoose.model(
         feedback: {type: String, required: true}
     },{timestamps: true})
 )
+
+module.exports = Food_Feedback

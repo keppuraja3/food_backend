@@ -43,7 +43,7 @@ exports.SignUpOtpGenerate = [
 
       // console.log("otp--- ", otp);
       await newUserOtp.save();
-      console.log("new user otp: ",newUserOtp);
+      // console.log("new user otp: ",newUserOtp);
       return res.status(201).json({ status: true, message: "Otp generated", otpId: newUserOtp._id});
     } catch (error) {
       console.log("SignUp Otp Error: ", error);
