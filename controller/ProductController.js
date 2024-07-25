@@ -55,7 +55,7 @@ exports.GetFoodProducts = [
         .json({ status: false, message: "Food products not found" });
     }
 
-    console.log("food list: ", foodProducts);
+    // console.log("food list: ", foodProducts);
 
     return res
       .status(200)

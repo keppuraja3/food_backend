@@ -8,12 +8,11 @@ const mainRouter = require("./routes/mainRoute")
 
 
 // app use ---
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cookieParser())
-app.use(mainRouter)
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+const allowedOrigins = ['http://localhost:3000/', 'http://localhost:3001'];
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -23,8 +22,9 @@ const corsOptions = {
     }
   }
 };
-app.use(cors(corsOptions))
+app.use(cors({origin:"*"}))
 
+app.use(mainRouter)
 PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
