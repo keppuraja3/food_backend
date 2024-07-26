@@ -27,7 +27,10 @@ const Restaurant = mongoose.model(
         match: /.+\@.+\..+/,
       },
       restaurant_address: addressSchema,
-      restaurant_image: { type: String, required: true },
+      restaurant_image: {
+        image: { type: String, required: true },
+        publicId: { type: String, required: true },
+      },
       owner_name: { type: String, required: true },
       owner_email: { type: String, required: true, unique: true },
       owner_mobile_no: { type: String, required: true, unique: true },

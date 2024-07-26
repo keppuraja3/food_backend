@@ -19,7 +19,7 @@ exports.addRestaurant = [
       } = req.body;
       const { filename, path } = req.file;
 
-      isExist = await Restaurant.findOne({ restaurant_email });
+      const isExist = await Restaurant.findOne({ restaurant_email });
       if (isExist)
         return res
           .status(409)
@@ -37,7 +37,7 @@ exports.addRestaurant = [
           state,
           pincode,
         },
-        restaurant_image:imageUrl.url,
+        restaurant_image: { image: imageUrl.url, publicId: imageUrl.public_id },
         owner_name,
         owner_email,
         owner_mobile_no,

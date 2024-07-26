@@ -28,14 +28,14 @@ const cloudupload = async (path) => {
 };
 
 // Deleting the cloudinary image ---
-const cloudDistroy = async(publicId)=>{
+const cloudDistroy = async (publicId) => {
   try {
     await cloudinary.uploader.destroy(publicId);
-    return true
+    return true;
   } catch (error) {
-    console.log("Error on delete cloudinary file: ", error)
+    console.log("Error on delete cloudinary file: ", error);
   }
-}
+};
 
 // Multer setup for file upload ---
 const storage = multer.diskStorage({
@@ -47,6 +47,9 @@ const storage = multer.diskStorage({
   },
 });
 
-const multerupload = multer({ storage: storage });
+const multerupload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 10 },// 10MB max size
+});
 
-module.exports = { cloudupload,cloudDistroy, multerupload };
+module.exports = { cloudupload, cloudDistroy, multerupload };
