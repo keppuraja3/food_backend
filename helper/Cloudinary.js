@@ -27,6 +27,7 @@ const cloudupload = async (path) => {
   }
 };
 
+// Deleting the cloudinary image ---
 const cloudDistroy = async(publicId)=>{
   try {
     await cloudinary.uploader.destroy(publicId);
@@ -36,7 +37,7 @@ const cloudDistroy = async(publicId)=>{
   }
 }
 
-// Multer setup for file upload
+// Multer setup for file upload ---
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");

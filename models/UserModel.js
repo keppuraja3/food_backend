@@ -1,27 +1,29 @@
 const mongoose = require("mongoose");
 
+// Define the address schema ---
+const addressSchema = mongoose.Schema({
+  street: { type: String },
+  city: { type: String },
+  state: { type: String },
+  pincode: {
+    type: Number,
+    minlength: 6,
+    maxlength: 6,
+    trim: true,
+  },
+});
+
 const User = mongoose.model(
   "User",
   new mongoose.Schema(
     {
       name: { type: String, required: true },
-      email: { type: String, required: true, unique: true, lowercase: true },
+      email: { type: String, required: true, unique: true, lowercase: true ,match: /.+\@.+\..+/,},
       mobileNo: { type: Number, required: true, unique: true },
+      image: { type: String },
       role: { type: String, default: "user", enum: ["user", "admin"] },
-      address: [
-        {
-          street: { type: String, required: true },
-          city: { type: String, required: true },
-          pincode: { type: Number, required: true, min: 6, max: 6 },
-        },
-      ],
-      food_feedbacks: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Food_Feedback",
-        },
-      ],
-      food_favorite: [
+      address: [addressSchema],
+      favorites: [
         {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Food",

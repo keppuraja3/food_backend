@@ -17,16 +17,20 @@ const Restaurant = mongoose.model(
   "Restaurant",
   new mongoose.Schema(
     {
-      name: { type: String, required: true },
-      mobile_no: { type: Number, required: true, unique: true },
-      email: {
+      restaurant_name: { type: String, required: true },
+      restaurant_mobile_no: { type: Number, required: true, unique: true },
+      restaurant_email: {
         type: String,
         required: true,
         unique: true,
         lowercase: true,
         match: /.+\@.+\..+/,
       },
-      address: addressSchema,
+      restaurant_address: addressSchema,
+      restaurant_image: { type: String, required: true },
+      owner_name: { type: String, required: true },
+      owner_email: { type: String, required: true, unique: true },
+      owner_mobile_no: { type: String, required: true, unique: true },
     },
     { timestamps: true }
   )

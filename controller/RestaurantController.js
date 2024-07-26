@@ -1,36 +1,53 @@
 const Restaurant = require("../models/RestaurantModel");
+const { cloudupload, cloudDistroy } = require("../helper/Cloudinary");
 
 // Add new restaurant ["/restaurant/add"]---
 exports.addRestaurant = [
   async (req, res) => {
     try {
-      const { hub_name, email, mobile_no, address } = req.body;
+      const {
+        restaurant_name,
+        restaurant_email,
+        restaurant_mobile_no,
+        street,
+        city,
+        state,
+        pincode,
+        owner_name,
+        owner_email,
+        owner_mobile_no,
+      } = req.body;
+      const { filename, path } = req.file;
 
-      isExist = await HubCompany.findOne({ email });
+      isExist = await Restaurant.findOne({ restaurant_email });
       if (isExist)
         return res
           .status(409)
           .json({ status: false, message: "Credentials already exits" });
 
-      await HubCompany.create({
-        hub_name,
-        email,
-        mobile_no,
-        address:{
-            street:address.street,
-            city: address.city,
-            state: address.state,
-            pincode: address.pincode,
-        }
+      const imageUrl = await cloudupload(path);
+
+      await Restaurant.create({
+        restaurant_name,
+        restaurant_email,
+        restaurant_mobile_no,
+        restaurant_address: {
+          street,
+          city,
+          state,
+          pincode,
+        },
+        restaurant_image:imageUrl.url,
+        owner_name,
+        owner_email,
+        owner_mobile_no,
       });
       return res
         .status(201)
-        .json({ status: true, message: "Hub Company Added" });
+        .json({ status: true, message: "Restaurant Added" });
     } catch (error) {
-      console.log("Error on add hub company: ", error);
-      return res
-        .status(500)
-        .json({ status: false, message: "Error on server" });
+      console.log("Error on add Restaurant: ", error);
+      return res.status(500).json({ status: false, message: error.message });
     }
   },
 ];

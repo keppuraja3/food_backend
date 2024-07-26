@@ -13,7 +13,7 @@ const FoodRouter = require("./routes/FoodRoute")
 const HubCompanyRouter = require("./routes/RestaurantRoute")
 
 // app use ---
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(cookieParser())
 

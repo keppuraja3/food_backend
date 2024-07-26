@@ -5,7 +5,7 @@ const Food = mongoose.model(
   new mongoose.Schema(
     {
       food_name: { type: String, required: true, trim: true },
-      restaurant_name: { type: String, required: true, trim: true },
+      restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
       price: { type: Number, required: true },
       min_delivery_time: { type: Number, required: true },
       max_delivery_time: { type: Number, required: true },

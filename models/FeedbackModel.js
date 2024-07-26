@@ -4,14 +4,14 @@ const Food_Feedback = mongoose.model(
     'Food_Feedback',
     new mongoose.Schema({
         Food_id: {
-            required: true,
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Food'
+            ref: 'Food',
+            required: true,
         },
         user_id: {
-            required:true,
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: "User",
+            required:true,
         },
         feedback: {type: String, required: true}
     },{timestamps: true})

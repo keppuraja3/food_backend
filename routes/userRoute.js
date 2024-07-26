@@ -10,7 +10,6 @@ router.post("/auth/signup", UserController.SignUpWithOtp)
 // Sign In with OTP verification ---
 router.post("/auth/signin", UserController.SignInWithOtp)
 
-
 // Add feedback product to the user list ---
 router.post('/users/:userId/feedback/:productId', UserController.AddFeedback)
 
