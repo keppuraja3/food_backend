@@ -31,6 +31,7 @@ const Restaurant = mongoose.model(
         image: { type: String, required: true },
         publicId: { type: String, required: true },
       },
+      restaurant_rating: { type: Number, min: 1, max: 5 , default: null},
       owner_name: { type: String, required: true },
       owner_email: { type: String, required: true, unique: true },
       owner_mobile_no: { type: String, required: true, unique: true },

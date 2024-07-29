@@ -10,20 +10,21 @@ cloudinary.config({
   secure_distribution: process.env.secure_distribution,
   secure: process.env.secure,
 });
+// image upload option ---
+const options = {
+  use_filename: true,
+  unique_filename: true,
+  folder: "ProductData",
+};
 
+// Upload the image ---
 const cloudupload = async (path) => {
   try {
-    // Upload the image
-    const options = {
-      use_filename: true,
-      unique_filename: true,
-      folder: "ProductData",
-    };
     const result = await cloudinary.uploader.upload(path, options);
     // console.log(result);
     return result;
   } catch (error) {
-    console.error("Error on cloudinary: ", error);
+    console.error("Error on upload cloudinary image: ", error);
   }
 };
 
@@ -33,7 +34,18 @@ const cloudDistroy = async (publicId) => {
     await cloudinary.uploader.destroy(publicId);
     return true;
   } catch (error) {
-    console.log("Error on delete cloudinary file: ", error);
+    console.log("Error on delete cloudinary image: ", error);
+  }
+};
+
+// Update the cloudinary image ---
+const cloudUpdate = async (publicId, path) => {
+  try {
+    await cloudinary.uploader.destroy(publicId);
+    const result = await cloudinary.uploader.upload(path, options);
+    return result;
+  } catch (error) {
+    console.log("Error on update cloudinary image: ", error);
   }
 };
 
@@ -49,7 +61,7 @@ const storage = multer.diskStorage({
 
 const multerupload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 10 },// 10MB max size
+  limits: { fileSize: 1024 * 1024 * 10 }, // 10MB max size
 });
 
-module.exports = { cloudupload, cloudDistroy, multerupload };
+module.exports = { cloudupload, cloudDistroy, multerupload, cloudUpdate };

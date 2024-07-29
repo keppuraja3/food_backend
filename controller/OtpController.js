@@ -67,7 +67,7 @@ exports.SignInOtpGenerate = [
       
       const otp = await GenerateOtp(6);
 
-      await UserOtp.findOneAndUpdate({$or:[{email},{mobileNo}]},{otp: otp})
+      const otpData = await UserOtp.findOneAndUpdate({$or:[{email},{mobileNo}]},{otp: otp})
 
       await mailSender({
         to: email,
@@ -76,7 +76,7 @@ exports.SignInOtpGenerate = [
         otp: otp,
       });
 
-      return res.status(200).json({status: true, message: "Login otp send successfully"})
+      return res.status(200).json({status: true, message: "Login otp send successfully", otpId: otpData._id})
     } catch (error) {
 
       console.log("Error on Sign In OTP: ", error)

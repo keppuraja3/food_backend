@@ -20,6 +20,7 @@ exports.SignUpWithOtp = [
             name: OtpUser.name,
             email: OtpUser.email,
             mobileNo: OtpUser.mobileNo,
+            otpId,
           });
 
           await newUser.save();
@@ -54,13 +55,11 @@ exports.SignUpWithOtp = [
 exports.SignInWithOtp = [
   async (req, res) => {
     try {
-      const { email, mobileNo, otp } = req.body;
-      const isOtpUser = await UserOtp.findOne({
-        $or: [{ email }, { mobileNo }],
-      });
+      const { otpId, otp } = req.body;
+      const isOtpUser = await UserOtp.findById(otpId);
 
       if (isOtpUser) {
-        const user = await User.findOne({ $or: [{ email }, { mobileNo }] });
+        const user = await User.findOne({ otpId });
         if (isOtpUser.otp === otp) {
           const token = await jwt.sign(
             {
@@ -174,4 +173,3 @@ exports.AddFeedback = [
     }
   },
 ];
-

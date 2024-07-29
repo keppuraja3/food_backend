@@ -10,6 +10,9 @@ router.post("/food/add",multerhelper.multerupload.single("food_image"), FoodCont
 // Get all Food list ---
 router.get("/food/list",FoodController.GetFoodList)
 
+// Update food data with image ---
+router.put("/food/update/:foodId",multerhelper.multerupload.single("food_image"), FoodController.UpdateFood)
+
 // Delete food data ---
 router.delete("/food/delete", FoodController.DeleteFood)
 

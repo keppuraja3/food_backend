@@ -1,4 +1,8 @@
-const { cloudupload, cloudDistroy } = require("../helper/Cloudinary");
+const {
+  cloudupload,
+  cloudDistroy,
+  cloudUpdate,
+} = require("../helper/Cloudinary");
 const Food = require("../models/FoodModel");
 
 // Adding a new food ['/food/add'] ----
@@ -7,7 +11,7 @@ exports.AddFood = [
     try {
       const {
         food_name,
-        restaurant_name,
+        restaurant,
         price,
         min_delivery_time,
         max_delivery_time,
@@ -15,7 +19,7 @@ exports.AddFood = [
         description,
         veg_type,
         offer,
-        categories,
+        categorie,
         sub_categorie,
       } = req.body;
       const { filename, path } = req.file;
@@ -23,7 +27,7 @@ exports.AddFood = [
 
       await Food.create({
         food_name,
-        restaurant_name,
+        restaurant,
         price,
         min_delivery_time,
         max_delivery_time,
@@ -31,7 +35,7 @@ exports.AddFood = [
         description,
         veg_type,
         offer,
-        categories,
+        categorie,
         sub_categorie,
         food_image: { image: imageUrl.url, publicId: imageUrl.public_id },
       });
@@ -49,19 +53,94 @@ exports.AddFood = [
 // Get all food list ["/food/list"] ---
 exports.GetFoodList = [
   async (req, res) => {
-    const foodList = await Food.find();
+    try {
+      // Get food list with only restaurant id ---
+      const foodList = await Food.find();
 
-    if (!foodList || foodList.length === 0) {
+      // Get food list with full restaurant details ---
+      // const foodList = await Food.find().populate("restaurant")
+
+      if (!foodList || foodList.length === 0) {
+        return res
+          .status(500)
+          .json({ status: false, message: "Food list not found" });
+      }
+
+      // console.log("food list: ", foodList);
+
+      return res
+        .status(200)
+        .json({ status: true, message: "Food list success", data: foodList });
+    } catch (error) {
+      console.log("Error on get food list: ", error.message);
+      return res.status(500).json({ status: false, message: error.message });
+    }
+  },
+];
+
+// Update food details ['/food/update/:foodId] ---
+exports.UpdateFood = [
+  async (req, res) => {
+    try {
+      const {
+        food_name,
+        restaurant,
+        price,
+        min_delivery_time,
+        max_delivery_time,
+        rating,
+        description,
+        veg_type,
+        offer,
+        categorie,
+        sub_categorie,
+      } = req.body;
+
+      const foodId = req.params.foodId;
+      const food = await Food.findById(foodId);
+
+      if (!food) {
+        return res
+          .status(404)
+          .json({ status: false, message: "Food not found" });
+      }
+
+      let updatedFields = {
+        food_name,
+        restaurant,
+        price,
+        min_delivery_time,
+        max_delivery_time,
+        rating,
+        description,
+        veg_type,
+        offer,
+        categorie,
+        sub_categorie,
+      };
+
+      // Check if a new image is provided
+      if (req.file) {
+        const { path } = req.file;
+        const imageUrl = await cloudUpdate(food.food_image.publicId, path);
+
+        // Delete the old image from Cloudinary if it exists
+        updatedFields.food_image = {
+          image: imageUrl.url,
+          publicId: imageUrl.publicId,
+        };
+      }
+
+      // Update the food product in the database
+      await Food.findByIdAndUpdate(foodId, updatedFields, { new: true });
+
+      return res.status(200).json({ status: true, message: "Food Updated" });
+    } catch (error) {
+      console.log("Error on food updating: ", error);
       return res
         .status(500)
-        .json({ status: false, message: "Food list not found" });
+        .json({ status: false, message: "Error on updating food" });
     }
-
-    // console.log("food list: ", foodList);
-
-    return res
-      .status(200)
-      .json({ status: true, message: "Food list success", data: foodList });
   },
 ];
 
