@@ -1,9 +1,9 @@
+const Food = require("../models/FoodModel");
 const {
   cloudupload,
   cloudDistroy,
   cloudUpdate,
 } = require("../helper/Cloudinary");
-const Food = require("../models/FoodModel");
 
 // Adding a new food ['/food/add'] ----
 exports.AddFood = [
@@ -123,16 +123,18 @@ exports.UpdateFood = [
       if (req.file) {
         const { path } = req.file;
         const imageUrl = await cloudUpdate(food.food_image.publicId, path);
+        console.log(food.food_image.publicId);
 
         // Delete the old image from Cloudinary if it exists
         updatedFields.food_image = {
           image: imageUrl.url,
-          publicId: imageUrl.publicId,
+          publicId: imageUrl.public_id,
         };
       }
 
+      console.log("updatedFields", updatedFields);
       // Update the food product in the database
-      await Food.findByIdAndUpdate(foodId, updatedFields, { new: true });
+      await Food.findByIdAndUpdate(foodId, updatedFields);
 
       return res.status(200).json({ status: true, message: "Food Updated" });
     } catch (error) {
@@ -144,15 +146,22 @@ exports.UpdateFood = [
   },
 ];
 
-// Deleting the food and cloudinary image ['/food/delete'] ----
+// Deleting the food and cloudinary image ['/food/delete/:foodId'] ----
 exports.DeleteFood = [
   async (req, res) => {
-    const publicId = req.body.publicId;
-    const FoodId = req.body.FoodId;
+    const foodId = req.params.foodId;
+    const food = await Food.findById(foodId);
 
+    if (!food)
+      return res.status(404).json({ status: false, message: "Food not found" });
+
+
+
+
+    const publicId = food.food_image.publicId;
     try {
       await cloudDistroy(publicId);
-      await Food.findByIdAndDelete(FoodId);
+      await Food.findByIdAndDelete(foodId);
 
       return res.status(200).json({ status: true, message: "Food deleted" });
     } catch (error) {

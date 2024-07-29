@@ -14,6 +14,6 @@ router.get("/food/list",FoodController.GetFoodList)
 router.put("/food/update/:foodId",multerhelper.multerupload.single("food_image"), FoodController.UpdateFood)
 
 // Delete food data ---
-router.delete("/food/delete", FoodController.DeleteFood)
+router.delete("/food/delete/:foodId", FoodController.DeleteFood)
 
 module.exports = router
