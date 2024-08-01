@@ -1,5 +1,5 @@
 const Restaurant = require("../models/RestaurantModel");
-const { cloudupload, cloudDistroy } = require("../helper/Cloudinary");
+const { cloudUpload, cloudDistroy } = require("../helper/Cloudinary");
 
 // Add new restaurant ["/restaurant/add"]---
 exports.addRestaurant = [
@@ -23,9 +23,9 @@ exports.addRestaurant = [
       if (isExist)
         return res
           .status(409)
-          .json({ status: false, message: "Credentials already exits" });
+          .send("Credentials already exits");
 
-      const imageUrl = await cloudupload(path);
+      const imageUrl = await cloudUpload(path);
 
       await Restaurant.create({
         restaurant_name,
@@ -37,7 +37,7 @@ exports.addRestaurant = [
           state,
           pincode,
         },
-        restaurant_image: { image: imageUrl.url, publicId: imageUrl.public_id },
+        restaurant_logo: { image: imageUrl.url, publicId: imageUrl.public_id },
         owner_name,
         owner_email,
         owner_mobile_no,
@@ -47,7 +47,7 @@ exports.addRestaurant = [
         .json({ status: true, message: "Restaurant Added" });
     } catch (error) {
       console.log("Error on add Restaurant: ", error);
-      return res.status(500).json({ status: false, message: error.message });
+      return res.status(500).send(error.message);
     }
   },
 ];

@@ -24,7 +24,7 @@ exports.Subscribe = (name) => {
           color: #ffffff;
           padding: 10px;
           text-align: center;
-          border-radius: 8px 8px 0 0;
+          border-radius: 8px 8px 0 0;    
         "
       >
         <h1>Welcome to Our Service!</h1>

@@ -3,7 +3,6 @@ const router = express.Router()
 
 const UserController = require("../controller/UserController")
 
-
 // Sign up with otp verification ---
 router.post("/auth/signup", UserController.SignUpWithOtp)
 

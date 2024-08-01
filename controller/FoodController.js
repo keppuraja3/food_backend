@@ -1,6 +1,6 @@
 const Food = require("../models/FoodModel");
 const {
-  cloudupload,
+  cloudUpload,
   cloudDistroy,
   cloudUpdate,
 } = require("../helper/Cloudinary");
@@ -23,7 +23,7 @@ exports.AddFood = [
         sub_categorie,
       } = req.body;
       const { filename, path } = req.file;
-      const imageUrl = await cloudupload(path);
+      const imageUrl = await cloudUpload(path);
 
       await Food.create({
         food_name,
@@ -45,7 +45,7 @@ exports.AddFood = [
       console.log("Error on food adding: ", error);
       return res
         .status(500)
-        .json({ status: false, message: "Error on creating food" });
+        .send("Error on creating food");
     }
   },
 ];
@@ -73,7 +73,7 @@ exports.GetFoodList = [
         .json({ status: true, message: "Food list success", data: foodList });
     } catch (error) {
       console.log("Error on get food list: ", error.message);
-      return res.status(500).json({ status: false, message: error.message });
+      return res.status(500).send(error.message);
     }
   },
 ];
@@ -102,7 +102,7 @@ exports.UpdateFood = [
       if (!food) {
         return res
           .status(404)
-          .json({ status: false, message: "Food not found" });
+          .send("Food not found");
       }
 
       let updatedFields = {
@@ -141,7 +141,7 @@ exports.UpdateFood = [
       console.log("Error on food updating: ", error);
       return res
         .status(500)
-        .json({ status: false, message: "Error on updating food" });
+        .send("Error on updating food");
     }
   },
 ];
@@ -153,10 +153,7 @@ exports.DeleteFood = [
     const food = await Food.findById(foodId);
 
     if (!food)
-      return res.status(404).json({ status: false, message: "Food not found" });
-
-
-
+      return res.status(404).send("Food not found");
 
     const publicId = food.food_image.publicId;
     try {
@@ -166,7 +163,7 @@ exports.DeleteFood = [
       return res.status(200).json({ status: true, message: "Food deleted" });
     } catch (error) {
       console.error("Error deleting file from Cloudinary:", error);
-      res.status(500).json({ status: false, message: "Error deleting file" });
+      res.status(500).send("Error deleting file");
     }
   },
 ];

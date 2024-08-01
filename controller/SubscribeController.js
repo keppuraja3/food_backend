@@ -12,7 +12,7 @@ exports.Subscribe = [
       if (isSubscribe)
         return res
           .status(409)
-          .json({ status: false, message: "Email already subscribed" });
+          .send("Email already subscribed");
 
       const newSubscriber = new Subscriber({
         email,

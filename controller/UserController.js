@@ -15,6 +15,7 @@ exports.SignUpWithOtp = [
 
       if (OtpUser) {
         // console.log(isOtpUser);
+        
         if (OtpUser.otp === otp) {
           const newUser = new User({
             name: OtpUser.name,
@@ -36,22 +37,22 @@ exports.SignUpWithOtp = [
         } else {
           return res
             .status(409)
-            .json({ status: false, message: "invalid OTP" });
+            .send("invalid OTP");
         }
       } else {
         console.log("Register UserOtp not found");
         return res
           .status(409)
-          .json({ status: false, message: "Register User Otp not found" });
+          .send("Register User Otp not found");
       }
     } catch (error) {
       console.log("Adding user Error: ", error.message);
-      return res.status(500).json({ status: false, message: error.message });
+      return res.status(500).send(error.message);
     }
   },
 ];
 
-// Sign In with OTP [ "/auth/signin" ]
+// Sign In with OTP [ "/auth/signin" ] ---
 exports.SignInWithOtp = [
   async (req, res) => {
     try {
@@ -79,17 +80,36 @@ exports.SignInWithOtp = [
         } else {
           return res
             .status(409)
-            .json({ status: false, message: "Invalid OTP" });
+            .send("Invalid OTP");
         }
       } else {
         console.log("Login User Otp not found");
         return res
           .status(500)
-          .json({ status: false, message: "Login UserOtp not found" });
+          .send("Login UserOtp not found");
       }
     } catch (error) {
-      return res.status(500).json({ status: false, message: error.message });
+      return res.status(500).send(error.message);
     }
+  },
+];
+
+// Update user details ['/user/update/:id] ---
+exports.UpdateUserProfile = [
+  async (req, res) => {
+    const { name, profile_image, email } = req.body;
+  },
+];
+
+// Change user mobile no with verify [''] ---
+
+exports.UpdateUserMobileNo = [
+  async (req, res) => {
+    const { mobileNo } = req.body;
+
+    const IsUser = await User.findOne({mobileNo});
+
+    if(!IsUser) return res.status()
   },
 ];
 
@@ -111,11 +131,11 @@ exports.AddFavorite = [
       } else {
         return res
           .status(400)
-          .json({ status: false, message: "Item already in favorites" });
+          .send("Item already in favorites");
       }
     } catch (error) {
       console.log("Error on add favorite: ", error);
-      return res.status(500).json({ status: false, message: error.message });
+      return res.status(500).send(error.message);
     }
   },
 ];
@@ -137,12 +157,12 @@ exports.RemoveFavorite = [
         .json({ stauts: true, message: "Item removed from favorites" });
     } catch (error) {
       console.log("Error on remove fav: ", error);
-      return res.status(500).json({ status: false, message: error.message });
+      return res.status(500).send(error.message);
     }
   },
 ];
 
-// Adding feedback [ '/user/:userId/product/:productId' ]---
+// Adding feedback [ '/user/:userId/product/:productId' ] ---
 exports.AddFeedback = [
   async (req, res) => {
     try {
@@ -156,7 +176,7 @@ exports.AddFeedback = [
       if (!user || !product) {
         return res
           .status(404)
-          .json({ status: false, message: "User or product not found" });
+          .send("User or product not found");
       }
 
       // Add the product to the user's favorites if it's not already there

@@ -1,7 +1,7 @@
 const UserOtp = require("../models/OtpModel");
-const {GenerateOtp} = require("../helper/GenerateOtp")
+const { GenerateOtp } = require("../helper/GenerateOtp");
 const { mailSender } = require("../helper/MailHelper");
-const User = require("../models/UserModel")
+const User = require("../models/UserModel");
 
 // Generate OTP for sign up ["/signup/otp"]---
 exports.SignUpOtpGenerate = [
@@ -9,12 +9,16 @@ exports.SignUpOtpGenerate = [
     try {
       const { email, mobileNo, name } = req.body;
 
+      // Checking email or mobile no exits in user otp schema
+      const IsUserOtp = await UserOtp.findOne({
+        $or: [{ email }, { mobileNo }],
+      });
+
       // Checking user is already registered or not using email id
       const isEmail = await User.findOne({ email });
       if (isEmail) {
-        return res
-          .status(409)
-          .json({ status: false, message: "Email already registered" });
+        return res.status(409).send("Email already registered");
+        // .json({ status: false, message: "Email already registered" });
       }
 
       // Checking user is already registered or not using Mobile No
@@ -22,52 +26,82 @@ exports.SignUpOtpGenerate = [
       if (isMobileNo) {
         return res
           .status(409)
-          .json({ status: false, message: "Mobile No already registered" });
+          .send("Mobile No already registered");
       }
 
-      const otp = await GenerateOtp(6)
+      const otp = await GenerateOtp(4);
 
-      const newUserOtp = new UserOtp({
-        name,
-        email,
-        mobileNo,
-        otp: otp,
-      });
-      
-      await mailSender({
-        to: email,
-        subject: "OTP Verification",
-        otp: otp,
-        name: name,
-      });
+      if (IsUserOtp) {
+        const oldUserOtp = await UserOtp.findOneAndUpdate(
+          { email },
+          { $set: { otp } },
+          { new: true }
+        );
+        await mailSender({
+          to: email,
+          subject: "OTP Verification",
+          otp: otp,
+          name: name,
+        });
+        return res.status(201).json({
+          status: true,
+          message: "Otp generated",
+          otpId: oldUserOtp._id,
+        });
+      } else {
+        const newUserOtp = new UserOtp({
+          name,
+          email,
+          mobileNo,
+          otp: otp,
+        });
 
-      // console.log("otp--- ", otp);
-      await newUserOtp.save();
-      // console.log("new user otp: ",newUserOtp);
-      return res.status(201).json({ status: true, message: "Otp generated", otpId: newUserOtp._id});
+        await mailSender({
+          to: email,
+          subject: "OTP Verification",
+          otp: otp,
+          name: name,
+        });
+
+        // console.log("otp--- ", otp);
+        await newUserOtp.save();
+        // console.log("new user otp: ",newUserOtp);
+        return res.status(201).json({
+          status: true,
+          message: "Otp generated",
+          otpId: newUserOtp._id,
+        });
+      }
     } catch (error) {
       console.log("SignUp Otp Error: ", error);
       return res
         .status(500)
-        .json({ status: false, message: "Error on server" });
+        .send("Error on server");
     }
   },
 ];
 
-// Generate OTP for sign in
+// Generate OTP for sign in ['/signin/otp']
 exports.SignInOtpGenerate = [
   async (req, res) => {
     try {
       const { email, mobileNo } = req.body;
 
+      console.log("req.body:  ",req.body);
       // Checking if the user is exist ---
-      const IsUser = await User.findOne({$or:[{email},{mobileNo}]})
+      const IsUser = await User.findOne({ $or: [{ email }, { mobileNo }] });
 
-      if(!IsUser) return res.status(409).json({status: false, message: "User not found"})
-      
-      const otp = await GenerateOtp(6);
+      if (!IsUser)
+        return res
+          .status(409)
+          .send("User not found");
 
-      const otpData = await UserOtp.findOneAndUpdate({$or:[{email},{mobileNo}]},{otp: otp})
+      const otp = await GenerateOtp(4);
+
+      const otpData = await UserOtp.findOneAndUpdate(
+        { $or: [{ email }, { mobileNo }] },
+        { otp: otp }
+      );
 
       await mailSender({
         to: email,
@@ -76,13 +110,16 @@ exports.SignInOtpGenerate = [
         otp: otp,
       });
 
-      return res.status(200).json({status: true, message: "Login otp send successfully", otpId: otpData._id})
+      return res.status(200).json({
+        status: true,
+        message: "Login otp send successfully",
+        otpId: otpData._id,
+      });
     } catch (error) {
-
-      console.log("Error on Sign In OTP: ", error)
-      return res.status(500).json({status: false, message: "Error on Sign In"})
-
+      console.log("Error on Sign In OTP: ", error);
+      return res
+        .status(500)
+        .send("Error on Sign In");
     }
-
   },
 ];

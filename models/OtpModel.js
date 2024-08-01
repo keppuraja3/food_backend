@@ -5,9 +5,14 @@ const UserOtp = mongoose.model(
   new mongoose.Schema(
     {
       name: { type: String, required: true },
-      email: { type: String, required: true, unique: true },
-      mobileNo: { type: Number, required: true, unique: true },
-      otp: { type: Number, required: true, min: 4 },
+      email: {
+        type: String,
+        required: true,
+        lowercase: true,
+        match: /.+\@.+\..+/,
+      },
+      mobileNo: { type: Number, required: true },
+      otp: { type: Number, required: true, minlength: 6, maxlength: 6 },
     },
     { timestamps: true }
   )

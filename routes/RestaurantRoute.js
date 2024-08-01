@@ -5,6 +5,6 @@ const RestaurantController = require("../controller/RestaurantController")
 const multerhelper = require("../helper/Cloudinary");
 
 // Add food data with image ---
-router.post("/restaurant/add",multerhelper.multerupload.single("restaurant_image"),RestaurantController.addRestaurant)
+router.post("/restaurant/add",multerhelper.multerupload.single("restaurant_logo"),RestaurantController.addRestaurant)
 
 module.exports = router

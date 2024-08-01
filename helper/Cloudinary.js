@@ -18,7 +18,7 @@ const options = {
 };
 
 // Upload the image ---
-const cloudupload = async (path) => {
+const cloudUpload = async (path) => {
   try {
     const result = await cloudinary.uploader.upload(path, options);
     // console.log(result);
@@ -61,7 +61,7 @@ const storage = multer.diskStorage({
 
 const multerupload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 10 }, // 10MB max size
+  limits: { fileSize: 1024 * 1024 * 10 }, // 10 MB max size
 });
 
-module.exports = { cloudupload, cloudDistroy, multerupload, cloudUpdate };
+module.exports = { cloudUpload, cloudDistroy, multerupload, cloudUpdate };
