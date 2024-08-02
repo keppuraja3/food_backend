@@ -24,9 +24,7 @@ exports.SignUpOtpGenerate = [
       // Checking user is already registered or not using Mobile No
       const isMobileNo = await User.findOne({ mobileNo });
       if (isMobileNo) {
-        return res
-          .status(409)
-          .send("Mobile No already registered");
+        return res.status(409).send("Mobile No already registered");
       }
 
       const otp = await GenerateOtp(4);
@@ -74,9 +72,7 @@ exports.SignUpOtpGenerate = [
       }
     } catch (error) {
       console.log("SignUp Otp Error: ", error);
-      return res
-        .status(500)
-        .send("Error on server");
+      return res.status(500).send("Error on server");
     }
   },
 ];
@@ -91,10 +87,7 @@ exports.SignInOtpGenerate = [
       // Checking if the user is exist ---
       const IsUser = await User.findOne({ $or: [{ email }, { mobileNo }] });
 
-      if (!IsUser)
-        return res
-          .status(409)
-          .send("User not found");
+      if (!IsUser) return res.status(409).send("User not found");
 
       const otp = await GenerateOtp(4);
 
@@ -117,9 +110,42 @@ exports.SignInOtpGenerate = [
       });
     } catch (error) {
       console.log("Error on Sign In OTP: ", error);
+      return res.status(500).send("Error on Sign In");
+    }
+  },
+];
+
+// Resend OTP ['/resend/otp/:id]
+exports.ResendOtp = [
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      const otp = await GenerateOtp(4);
+
+      const IsOtp = await UserOtp.findByIdAndUpdate(
+        id,
+        {
+          $set: { otp },
+        },
+        { new: true }
+      );
+
+      if (!IsOtp) return res.status(409).send("Somthing wrong");
+
+      await mailSender({
+        to: IsOtp.email,
+        subject: "OTP Verification",
+        otp: IsOtp.otp,
+        name: IsOtp.name,
+      });
+
       return res
-        .status(500)
-        .send("Error on Sign In");
+        .status(200)
+        .json({ status: true, message: "Otp send successfully" });
+    } catch (error) {
+      console.log("Error on resend otp: ", error);
+      return res.status(500).send(error.message);
     }
   },
 ];

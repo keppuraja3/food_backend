@@ -6,13 +6,6 @@ const { Subscribe } = require("../helper/htmlTemplates/Subscribe");
 
 exports.mailSender = async (mailData = {}) => {
   const { to, subject, name, otp } = mailData;
-//   const transporter = nodemailer.createTransport({
-//     service: "gmail",
-//     auth: {
-//       user: process.env.smtpSendEamil,
-//       pass: process.env.smtpAppPass,
-//     },
-//   });
 
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -50,6 +43,7 @@ exports.mailSender = async (mailData = {}) => {
   await transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log("Error on sending mail: ", error);
+      return false;
     }
 
     console.log("Message send: ", info.messageId);

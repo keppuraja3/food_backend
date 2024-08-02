@@ -43,9 +43,7 @@ exports.AddFood = [
       return res.status(201).json({ status: true, message: "Food Added" });
     } catch (error) {
       console.log("Error on food adding: ", error);
-      return res
-        .status(500)
-        .send("Error on creating food");
+      return res.status(500).send("Error on creating food");
     }
   },
 ];
@@ -100,9 +98,7 @@ exports.UpdateFood = [
       const food = await Food.findById(foodId);
 
       if (!food) {
-        return res
-          .status(404)
-          .send("Food not found");
+        return res.status(404).send("Food not found");
       }
 
       let updatedFields = {
@@ -139,9 +135,7 @@ exports.UpdateFood = [
       return res.status(200).json({ status: true, message: "Food Updated" });
     } catch (error) {
       console.log("Error on food updating: ", error);
-      return res
-        .status(500)
-        .send("Error on updating food");
+      return res.status(500).send("Error on updating food");
     }
   },
 ];
@@ -152,8 +146,7 @@ exports.DeleteFood = [
     const foodId = req.params.foodId;
     const food = await Food.findById(foodId);
 
-    if (!food)
-      return res.status(404).send("Food not found");
+    if (!food) return res.status(404).send("Food not found");
 
     const publicId = food.food_image.publicId;
     try {
